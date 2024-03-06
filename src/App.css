@@ -1,0 +1,31 @@
+.search {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+}
+.App {
+  color: aliceblue;
+}
+.search input {
+  width: 600px;
+  height: 40px;
+}
+.movie {
+  margin-top: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 40px;
+}
+.movie img {
+  height: 70px;
+}
+
+.application {
+  display: flex;
+  justify-content: space-between;
+  
+}
+.tracked {
+  margin-right: 50px;
+}
