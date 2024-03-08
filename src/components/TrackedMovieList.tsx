@@ -1,16 +1,20 @@
 import { useSelector } from "react-redux";
 import { MovieType } from "../models/movieType";
 import { TrackedMovie } from "./TrackedMovie";
-import { RootState} from "../redux-stuff/store";
+import { RootState } from "../redux-stuff/store";
+import { FC } from "react";
 
-
-function TrackedMovieList() {
-  const trackedMovies: MovieType[] = useSelector((store:RootState)=>store.movieReducer)
+const TrackedMovieList: FC = () => {
+  const trackedMovies: MovieType[] = useSelector(
+    (store: RootState) => store.movieReducer
+  );
   return (
     <div className="tracked">
       <h1>Tracked Movies</h1>
-      {trackedMovies.map((movie)=> <TrackedMovie trackedMovie={movie}/>)}
+      {trackedMovies.map((movie) => (
+        <TrackedMovie trackedMovie={movie} />
+      ))}
     </div>
   );
-}
+};
 export { TrackedMovieList };

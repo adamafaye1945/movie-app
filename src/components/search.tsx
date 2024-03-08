@@ -1,17 +1,23 @@
-import { useEffect, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import "../App.css";
 import { useGetMovieQuery } from "../redux-stuff/apiSlice";
 import { MovieList } from "./MovieList";
 
-function Search() {
+import { ResponseApi } from "../models/movieType";
+
+const Search: FC = () => {
   const [search, setSearch] = useState("");
   const [apiSearchElement, setApiSearchElement] = useState("");
-  const { data } = useGetMovieQuery(apiSearchElement, {
+  const [displayedSearch, setDisplayedSearch] = useState<ResponseApi>()
+  // const dispatcher = useDispatch();
+  const { data, isFetching } = useGetMovieQuery(apiSearchElement, {
     skip: apiSearchElement === "",
   });
-
-  
-
+  //question 
+  function handleClear(){
+    setSearch("")
+    setDisplayedSearch(undefined)
+  }
   useEffect(
     function () {
       const debounce = setTimeout(() => {
@@ -21,9 +27,15 @@ function Search() {
     },
     [search]
   );
-
+  useEffect(
+    function(){
+      setDisplayedSearch(data)
+    }, [data]
+  )
+  console.log(data)
   return (
     <div>
+      
       <h1 style={{ textAlign: "center" }}>Movie search app 🎥</h1>
       <div className="search">
         <p>search your movies here</p>
@@ -33,15 +45,17 @@ function Search() {
           placeholder="look up your movie here"
           type="text"
         />
-        <button>Clear search</button>
+        <button onClick={handleClear}>Clear search</button>
       </div>
-      {data?.Response && (
+      {isFetching && <p>....Searching 🔎</p>}
+      {displayedSearch?.Response === "False" && <h1>No movie found sorry!</h1>}
+      {displayedSearch?.Response === "True" && (
         <>
           <h2>Results</h2>
-          <MovieList MovieData={data?.Search} />
+          <MovieList MovieData={displayedSearch?.Search} />
         </>
       )}
     </div>
   );
-}
+};
 export { Search };

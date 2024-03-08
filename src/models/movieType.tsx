@@ -1,6 +1,12 @@
-type MovieType = {
+interface MovieType {
   Title: string;
   imdbID: string;
   Poster: string;
-};
-export type { MovieType };
+  Rating: number;
+  rated: boolean;
+}
+interface ResponseApi {
+  Response: string;
+  Search: MovieType[];
+}
+export type { MovieType, ResponseApi };
